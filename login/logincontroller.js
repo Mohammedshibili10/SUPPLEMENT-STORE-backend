@@ -19,7 +19,7 @@ export const finduser = async (req, res) => {
       return res.json({message:"incorrect password"})
      }
 
-    // const token = jwt.sign({id:user._id, name:user.name},process.env.JWT_SECRET,{expiresIn:"1d"})
+    const token = jwt.sign({id:user._id, name:user.name},process.env.JWT_SECRET,{expiresIn:"1d"})
  
 
     res.status(200).json({

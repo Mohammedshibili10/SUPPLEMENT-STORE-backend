@@ -30,19 +30,22 @@ export const getProductbyid = async (req, res) => {
 }
 export const createProduct = async (req, res) => {
     try {
-        const { name, description, feature, offer ,price} = req.body
+        const { name, description, feature, offer, price } = req.body
         console.log(req.body)
         const image=req.file?.filename;
-        // const price=req.body.price
-        console.log(price)
+    //    const price=req.body.price
+        console.log(req.body.price)
 
-        if (!name || !description  || !feature || !offer ||!price || !image ) {
+        if (!name || !description  || !feature || !offer ||!price ) {
              console.log(name,description,offer,feature,image)
 
             return res.status(400).send({ message: "All fields are required" })
         }
+        const data= {
+            name, description, feature, price, offer, image
+        }
        
-        const product = await Product.create({ name, description, feature, offer,image,price})
+        const product = await Product.create(data)
         return res.status(201).json({
             data: product,
             message: "Product created successfully"
@@ -57,7 +60,7 @@ export const updateProduct = async (req, res) => {
     try {
         const { name, description, price, feature, offer} = req.body;
         const image=req.file?.filename;
-        if (!name || !description || !price || !feature || !offer || !image) {
+        if (!name || !description || !price || !feature || !offer) {
             return res.status(400).send({ message: "All fields are required" })
         }
         const { id } = req.params;
